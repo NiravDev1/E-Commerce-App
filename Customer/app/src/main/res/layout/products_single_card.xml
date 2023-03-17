@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="180dp"
+    android:layout_height="230dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/product_discount_card_id"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/discout_layout"
+                android:gravity="center"
+                android:text="100%"
+                android:textColor="@color/white"
+                android:textSize="7sp" />
+
+            <ImageView
+                android:id="@+id/like_icon_card"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:src="@drawable/heart" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/product_imge_card_id"
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/categories" />
+
+        <TextView
+            android:id="@+id/product_name_card_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_imge_card_id"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Product Name"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/product_discout_price_card_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_name_card_id"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/opensans_bold"
+            android:text="100"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/product_price_card_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_name_card_id"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/product_discout_price_card_id"
+
+            android:text="100" />
+
+        <TextView
+            android:id="@+id/qunty_text_s_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_discout_price_card_id"
+            android:layout_marginStart="5dp"
+            android:text="Quantity:"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/product_quantity_card_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_discout_price_card_id"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/qunty_text_s_id"
+            android:text="Quantity:"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/product_description_card_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/product_quantity_card_id"
+            android:layout_marginStart="5dp"
+            android:text="description"
+            android:textSize="12dp"
+            android:lines="@integer/material_motion_duration_long_2"
+            />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_botton_m_id"
+        android:title="Home"
+        android:icon="@drawable/home"/>
+    <item
+        android:id="@+id/categories_bottom_m_id"
+        android:title="Categories"
+        android:icon="@drawable/categories"
+        />
+    <item android:title="Like"
+        android:id="@+id/like_bottom_m_id"
+        android:icon="@drawable/heart"
+        />
+    <item android:id="@+id/profile_bottom_m_id"
+        android:title="Profile"
+        android:icon="@drawable/user_b_n"
+        />
+
+</menu>
