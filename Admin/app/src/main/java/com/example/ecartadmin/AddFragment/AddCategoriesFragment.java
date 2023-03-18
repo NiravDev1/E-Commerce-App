@@ -83,7 +83,7 @@ public class AddCategoriesFragment extends Fragment {
     }
 
     FragmentAddCategoriesBinding binding;
-    Uri uri;
+    Uri imgelink;
     Bitmap bitmap;
     DatabaseReference reference;
     StorageReference storageReference;
@@ -95,7 +95,7 @@ public class AddCategoriesFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentAddCategoriesBinding.inflate(inflater, container, false);
         reference = FirebaseDatabase.getInstance().getReference("CATEGORIES");
-        storageReference = FirebaseStorage.getInstance().getReference("Image1" + new Random().nextInt(25));
+
         PickImageClass();
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.loadinglayout);
@@ -106,7 +106,7 @@ public class AddCategoriesFragment extends Fragment {
                 String CategoiesName = binding.addCateEdDi.getText().toString();
                 if (CategoiesName.isEmpty()) {
                     Toast.makeText(getContext(), "Fill the fields", Toast.LENGTH_SHORT).show();
-                } else if (uri == null) {
+                } else if (imgelink == null) {
                     Toast.makeText(getContext(), "please select image", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "fill", Toast.LENGTH_SHORT).show();
@@ -124,8 +124,9 @@ public class AddCategoriesFragment extends Fragment {
     }
 
     private void ImageStoreInFirebase(String categoiesName) {
+        storageReference = FirebaseStorage.getInstance().getReference("Categories1" + new Random().nextInt(25));
 
-        storageReference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        storageReference.putFile(imgelink).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -135,8 +136,17 @@ public class AddCategoriesFragment extends Fragment {
                         public void onSuccess(Uri uri) {
                             String uid = reference.push().getKey().toString();
                             CategoriesModel categoriesModel = new CategoriesModel(categoiesName, uri.toString(), uid);
-                            reference.child(uid).setValue(categoriesModel);
-                            dialog.dismiss();
+                            reference.child(uid).setValue(categoriesModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        binding.addCateEdDi.setText(null);
+                                        imgelink = null;
+                                        dialog.dismiss();
+                                    }
+                                }
+                            });
+
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -175,9 +185,9 @@ public class AddCategoriesFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode,
                                  @Nullable Intent data) {
         if (requestCode == 99 && resultCode == RESULT_OK) {
-            uri = data.getData();
+            imgelink = data.getData();
             try {
-                InputStream stream = getContext().getContentResolver().openInputStream(uri);
+                InputStream stream = getContext().getContentResolver().openInputStream(imgelink);
                 bitmap = BitmapFactory.decodeStream(stream);
                 binding.addCateImgvId.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {

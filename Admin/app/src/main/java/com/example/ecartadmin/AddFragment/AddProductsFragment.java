@@ -102,7 +102,7 @@ public class AddProductsFragment extends Fragment {
     List list;
     CategoriesModel categoriesModel;
     StorageReference storageReference;
-    Uri uri;
+    Uri imgelink1;
     Bitmap bitmap;
     Dialog dialog;
 
@@ -131,12 +131,15 @@ public class AddProductsFragment extends Fragment {
 
                         list.add(String.valueOf(categoriesModel.getCategoryName()));
 
+
                     } catch (Exception e) {
                         e.getMessage();
                     }
                 }
+                System.out.println(list);
                 try {
                     ArrayAdapter catspineradapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, list);
+
                     binding.categoryP.setAdapter(catspineradapter);
                 } catch (Exception e) {
                     e.getMessage();
@@ -189,7 +192,7 @@ public class AddProductsFragment extends Fragment {
 
     private void AddtoFirebase(String productName, String productPrice, String productCategories, String productDescription, String productQuantity, String productCategories1, String productDiscount) {
         storageReference = FirebaseStorage.getInstance().getReference("Product12" + new Random().nextInt(500));
-        storageReference.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        storageReference.putFile(imgelink1).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -205,10 +208,23 @@ public class AddProductsFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             String PUid = reference.push().getKey();
-                            String imageuri=uri.toString();
-                            ProductsModel productsModel = new ProductsModel(PUid, productName, ProductDiscoutPrice, productPrice, productDiscount, productCategories, productQuantity, productDescription,imageuri);
-                            reference.child("PRODUCTS").child(PUid).setValue(productsModel);
-                            dialog.dismiss();
+                            String imageuri = uri.toString();
+                            ProductsModel productsModel = new ProductsModel(PUid, productName, ProductDiscoutPrice, productPrice, productDiscount, productCategories, productQuantity, productDescription, imageuri);
+                            reference.child("PRODUCTS").child(PUid).setValue(productsModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        imgelink1 = null;
+                                        binding.quantityP.getEditText().setText(null);
+                                        binding.nameP.getEditText().setText(null);
+                                        binding.descriptionP.getEditText().setText(null);
+                                        binding.discoutP.getEditText().setText(null);
+                                        binding.priceP.getEditText().setText(null);
+                                        dialog.dismiss();
+                                    }
+                                }
+                            });
+
                         }
                     });
                 }
@@ -228,9 +244,9 @@ public class AddProductsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode,
                                  @Nullable Intent data) {
         if (requestCode == 11 && resultCode == RESULT_OK) {
-            uri = data.getData();
+            imgelink1 = data.getData();
             try {
-                InputStream stream = getContext().getContentResolver().openInputStream(uri);
+                InputStream stream = getContext().getContentResolver().openInputStream(imgelink1);
                 bitmap = BitmapFactory.decodeStream(stream);
                 binding.addProductImgeId.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {

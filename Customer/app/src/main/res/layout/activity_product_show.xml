@@ -108,6 +108,8 @@
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/opensans_bold"
                 android:text="100"
+                android:drawableTint="@color/black"
+                android:drawableLeft="@drawable/rupee"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
@@ -118,6 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/product_show_name_id"
                 android:layout_marginStart="10dp"
+                android:drawableTint="@color/black"
+                android:drawableLeft="@drawable/rupee"
                 android:layout_toEndOf="@id/product_show_discout_price_id"
                 android:fontFamily="@font/opensans_bold"
                 android:text="100"
@@ -238,34 +242,15 @@
                 app:elevation="15dp" />
 
             <TextView
-                android:id="@+id/product_show_similiar_text_s_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/product_show_add_to_cart_BTN"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/open_sans_reguler"
-                android:text="Similar Product"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/product_show_similiiarpro_recycler_view_id"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/product_show_similiar_text_s_id"
-                tools:itemCount="1"
-                tools:listitem="@layout/products_single_card" />
-
-            <TextView
                 android:id="@+id/product_show_text_s_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/product_show_similiiarpro_recycler_view_id"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/open_sans_reguler"
                 android:text="Product"
+                android:layout_margin="5dp"
+                android:layout_below="@id/product_show_add_to_cart_BTN"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
             <androidx.recyclerview.widget.RecyclerView

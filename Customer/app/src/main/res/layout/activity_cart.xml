@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CartActivity">
+
+    <RelativeLayout
+        android:id="@+id/cart_tool_bar_id"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+        <TextView
+            android:id="@+id/To_home_Acitivity_BTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:drawableLeft="@drawable/left"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/maincolor"
+            android:fontFamily="@font/opensans_bold"
+            android:gravity="center"
+            android:text="Cart"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+
+            />
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_recycler_view_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cart_tool_bar_id"
+        tools:itemCount="2"
+        tools:listitem="@layout/cart_sinlge_card" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/cart_item_total_price_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="total  price"
+            android:textSize="18sp"
+            android:drawableTint="@color/black"
+            android:drawableLeft="@drawable/rupee"
+            android:textColor="@color/black"
+            android:fontFamily="@font/opensans_bold"/>
+
+        <TextView
+            android:id="@+id/cart_item_count_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_item_total_price_price"
+            android:text="total item"
+            android:layout_marginStart="5dp"
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -3,14 +3,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragment.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile"
-        android:gravity="center"/>
+ <RelativeLayout
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent" >
+
+     <ScrollView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         >
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+             <de.hdodenhof.circleimageview.CircleImageView
+                 android:id="@+id/cuserProfileId"
+                 android:layout_width="100dp"
+                 android:layout_height="90dp"
+                 android:layout_gravity="center"
+                 android:layout_margin="10dp"
+                 android:layout_marginTop="25dp"
+                 android:src="@drawable/baseline_person_24"
+                 app:civ_border_color="@color/black"
+                 app:civ_border_width="1dp" />
+
+             <TextView
+                 android:id="@+id/cuserNameId"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:text="Loading.."
+                 android:textColor="@color/black"
+                 android:textSize="25sp" />
+
+             <TextView
+                 android:id="@+id/cuserEmailId"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:text="Loading.."
+                 android:textColor="@color/black"
+                 android:textSize="15sp" />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="20dp"
+                 android:gravity="start"
+                 android:text="Profile"
+                 android:textSize="15sp" />
+
+             <TextView
+                 android:id="@+id/edite_profile_toF_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="30dp"
+                 android:layout_marginTop="10dp"
+                 android:drawablePadding="40dp"
+                 android:padding="15dp"
+                 android:text="Edit Profile"
+                 android:textColor="@color/black"
+                 android:textSize="15sp"
+                 app:drawableLeftCompat="@drawable/ic_baseline_person_24"
+                 app:drawableRightCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+             <TextView
+                 android:id="@+id/change_password_tOF_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="30dp"
+                 android:layout_marginTop="10dp"
+                 android:drawablePadding="40dp"
+                 android:padding="15dp"
+                 android:text="Change Password"
+                 android:textColor="@color/black"
+                 android:textSize="15sp"
+                 app:drawableLeftCompat="@drawable/ic_baseline_lock_reset_24"
+                 app:drawableRightCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="20dp"
+                 android:gravity="start"
+                 android:text="Notification"
+                 android:textSize="15sp" />
+
+             <Switch
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="30dp"
+                 android:layout_marginTop="10dp"
+                 android:drawableStart="@drawable/ic_baseline_notifications_none_24"
+                 android:drawablePadding="40dp"
+                 android:padding="15dp"
+                 android:thumbTint="@color/maincolor"
+                 android:text="Notification"
+                 android:textSize="15sp" />
+             <TextView
+                 android:id="@+id/log_out_id"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginHorizontal="30dp"
+                 android:layout_marginTop="10dp"
+                 android:drawablePadding="40dp"
+                 android:padding="15dp"
+                 android:text="Log out"
+                 android:textColor="@color/black"
+                 android:textSize="15sp"
+                 app:drawableLeftCompat="@drawable/ic_baseline_logout_24"
+                 app:drawableRightCompat="@drawable/ic_baseline_arrow_forward_ios_24" />
+
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:layout_marginTop="20dp"
+                 android:gravity="start"
+                 android:text="V1.0.0"
+                 android:textSize="15sp" />
+
+
+         </LinearLayout>
+
+     </ScrollView>
+
+
+
+
+ </RelativeLayout>
 
 
 </FrameLayout>

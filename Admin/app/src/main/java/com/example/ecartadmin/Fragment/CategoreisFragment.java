@@ -88,11 +88,10 @@ public class CategoreisFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                    arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     CategoriesModel categoriesModel = dataSnapshot.getValue(CategoriesModel.class);
                     arrayList.add(categoriesModel);
-                    Collections.shuffle(arrayList); //random show  data
                     adapter.notifyDataSetChanged();
 
                 }

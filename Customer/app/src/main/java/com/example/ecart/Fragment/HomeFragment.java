@@ -1,5 +1,6 @@
 package com.example.ecart.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.ecart.Activity.CartActivity;
 import com.example.ecart.Adapter.CategoriesAdapter;
 import com.example.ecart.Adapter.ProductAdapter;
 import com.example.ecart.ModelClass.CategoriesModel;
@@ -94,8 +96,15 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         reference = FirebaseDatabase.getInstance().getReference();
-        reference.keepSynced(true);
+
         UID = FirebaseAuth.getInstance().getUid();
+
+        binding.ToOpenCartBTNId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            }
+        });
 //        binding.shimmerViewContainerForCate.setShimmer(this);
         reference.child("USERS").addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,7 +112,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     UserModel userModel = dataSnapshot.getValue(UserModel.class);
                     if (UID.equals(userModel.getUid())) {
-                        binding.USerNameHomefId.setText("Hi!  "+userModel.getName());
+                        binding.USerNameHomefId.setText("Hi!  " + userModel.getName());
                     }
                 }
             }

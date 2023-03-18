@@ -58,6 +58,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.Productv
                 Intent i=new Intent(context,ProductShowActivity.class);
                 i.putExtra("PID",model.getProductUId().toString());
                 i.putExtra("PCate",model.getProductCategories().toString());
+                i.putExtra("PImge",model.getProductImage());
                 context.startActivity(i);
             }
         });

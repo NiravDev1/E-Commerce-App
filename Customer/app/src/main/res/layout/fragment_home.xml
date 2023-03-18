@@ -41,6 +41,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
+                    android:id="@+id/ToOpen_cart_BTN_id"
                     android:layout_width="34dp"
                     android:layout_height="34dp"
                     android:layout_alignParentEnd="true"

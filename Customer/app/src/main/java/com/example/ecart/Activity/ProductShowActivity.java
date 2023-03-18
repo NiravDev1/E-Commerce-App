@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ecart.Adapter.ProductAdapter;
+import com.example.ecart.ModelClass.CartModel;
 import com.example.ecart.ModelClass.ProductsModel;
 import com.example.ecart.R;
 import com.example.ecart.databinding.ActivityProductShowBinding;
@@ -28,13 +30,13 @@ import java.util.Collections;
 
 public class ProductShowActivity extends AppCompatActivity {
 
-    String PId, PCate;
+    String PId, PCate, Pimge;
     DatabaseReference reference;
     ActivityProductShowBinding binding;
 
     ProductAdapter productAdapter;
 
-    int qunty = 1;
+    long qunty = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +45,36 @@ public class ProductShowActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         PId = getIntent().getStringExtra("PID");
         PCate = getIntent().getStringExtra("PCate");
-
+        Pimge = getIntent().getStringExtra("PImge");
         AllProduct();
-        SimilierProduct();
+
+
+        binding.productShowAddToCartBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*ProductUId,ProductName,CustomerUID,ProductDiscountPrice,ProductPrice,ProductDiscount,ProductQuantity,ProductImage;*/
+                reference = FirebaseDatabase.getInstance().getReference("CART");
+                String CUID = FirebaseAuth.getInstance().getUid();
+                String pname = binding.productShowNameId.getText().toString();
+                String pprice = binding.productShowPriceId.getText().toString();
+                String pdprice = binding.productShowDiscoutPriceId.getText().toString();
+                String quntity = binding.quantityTextview.getText().toString();
+
+                long t = Long.parseLong(binding.productShowDiscoutPriceId.getText().toString());
+                long stotalprice = t * Long.parseLong(quntity);
+                System.out.println(stotalprice);
+                String Sdpricee = String.valueOf(stotalprice);
+
+                CartModel cartModel = new CartModel(PId, pname, CUID, pdprice, pprice, Sdpricee, quntity, Pimge);
+                reference.child(CUID).child(PId).setValue(cartModel);
+
+                startActivity(new Intent(ProductShowActivity.this, CartActivity.class));
+                finish();
+
+
+            }
+        });
+
 
         binding.productShowPriceId.setPaintFlags(binding.productShowPriceId.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         reference = FirebaseDatabase.getInstance().getReference("PRODUCTS");
@@ -57,8 +86,8 @@ public class ProductShowActivity extends AppCompatActivity {
                 binding.productShowNameId.setText(productsModel.getProductName());
                 binding.productShowDiscoutId.setText(productsModel.getProductDiscount() + "%");
                 binding.productShowDescriptionId.setText(productsModel.getProductDescription());
-                binding.productShowPriceId.setText("\u20B9" + productsModel.getProductPrice());
-                binding.productShowDiscoutPriceId.setText("\u20B9" + productsModel.getProductDiscountPrice());
+                binding.productShowPriceId.setText(productsModel.getProductPrice());
+                binding.productShowDiscoutPriceId.setText(productsModel.getProductDiscountPrice());
                 Glide.with(binding.showProductImgeId).load(productsModel.getProductImage()).into(binding.showProductImgeId);
 
 
@@ -71,6 +100,16 @@ public class ProductShowActivity extends AppCompatActivity {
             }
         });
 
+        binding.productShowSimiliarProBtnId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PCate = getIntent().getStringExtra("PCate");
+                System.out.println(PCate);
+                Intent intent = new Intent(ProductShowActivity.this, CategoriesToProductsActivity.class);
+                intent.putExtra("CatName", PCate);
+                startActivity(intent);
+            }
+        });
         binding.incrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,34 +131,6 @@ public class ProductShowActivity extends AppCompatActivity {
 
     }
 
-    private void SimilierProduct() {
-        reference = FirebaseDatabase.getInstance().getReference("PRODUCTS");
-        reference.keepSynced(true);
-        ArrayList<ProductsModel> slist = new ArrayList<>();
-        productAdapter = new ProductAdapter(ProductShowActivity.this, slist);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ProductsModel productsModel = dataSnapshot.getValue(ProductsModel.class);
-                    if (PCate.equals(productsModel.getProductCategories())) {
-                        slist.add(productsModel);
-                        Collections.shuffle(slist);
-                        productAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductShowActivity.this, "error:" + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        LinearLayoutManager llm = new LinearLayoutManager(ProductShowActivity.this, RecyclerView.HORIZONTAL, false);
-        binding.productShowSimiliiarproRecyclerViewId.setLayoutManager(llm);
-        binding.productShowSimiliiarproRecyclerViewId.setAdapter(productAdapter);
-        productAdapter.notifyDataSetChanged();
-    }
 
     private void AllProduct() {
         reference = FirebaseDatabase.getInstance().getReference("PRODUCTS");
@@ -145,8 +156,9 @@ public class ProductShowActivity extends AppCompatActivity {
 
             }
         });
-        binding.productShowAllproductRecyclerViewId.setLayoutManager(new GridLayoutManager(ProductShowActivity.this,2));
+        binding.productShowAllproductRecyclerViewId.setLayoutManager(new GridLayoutManager(ProductShowActivity.this, 2));
         binding.productShowAllproductRecyclerViewId.setAdapter(productAdapter);
+        productAdapter.notifyDataSetChanged();
 
     }
 }

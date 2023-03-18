@@ -28,13 +28,15 @@ public class CategoriesToProductsActivity extends AppCompatActivity {
     DatabaseReference reference;
     ProductAdapter productAdapter;
     ArrayList<ProductsModel> list;
-
+    String Catname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoriesToProductsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        String Catname = getIntent().getStringExtra("CatName");
+         Catname = getIntent().getStringExtra("CatName");
+        System.out.println(Catname);
+
         binding.cateToProToolbarId.setTitle(Catname);
         list = new ArrayList<>();
         productAdapter = new ProductAdapter(this, list);
@@ -51,6 +53,7 @@ public class CategoriesToProductsActivity extends AppCompatActivity {
                         Collections.shuffle(list);
                         System.out.println("m"+productsModel);
                         System.out.println("l"+list);
+                        productAdapter.notifyDataSetChanged();
                     } else {
 //                        System.out.println("a"+productsModel);
                     }
