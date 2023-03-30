@@ -1,14 +1,29 @@
 package com.example.ecart.Fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ecart.Activity.AddressActivity;
+import com.example.ecart.Authentication.AuthAcitivity;
+import com.example.ecart.ModelClass.UserModel;
 import com.example.ecart.R;
+import com.example.ecart.databinding.FragmentProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,11 +71,65 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+    FirebaseAuth auth;
+    DatabaseReference reference;
 
+    FragmentProfileBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        binding= FragmentProfileBinding.inflate(inflater, container, false);
+
+        auth=FirebaseAuth.getInstance();
+        reference= FirebaseDatabase.getInstance().getReference("USERS");
+        reference.keepSynced(true);
+        reference.child(auth.getCurrentUser().getUid().toString()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserModel userModel=snapshot.getValue(UserModel.class);
+                binding.customerNameId.setText(userModel.getName());
+                binding.customerEmailId.setText(userModel.getEmail());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        binding.addAddressId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddressActivity.class));
+
+            }
+        });
+
+
+
+
+
+
+
+
+        binding.logOutId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences sharedPreferences= getActivity().getSharedPreferences("auth", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor=sharedPreferences.edit();
+                editor.putBoolean("flag",false);
+                editor.apply();
+                auth.signOut();
+                startActivity(new Intent(getContext(), AuthAcitivity.class));
+                getActivity().finish();
+
+            }
+        });
+
+
+        return binding.getRoot();
+
     }
 }

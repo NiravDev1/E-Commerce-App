@@ -3,6 +3,7 @@ package com.example.ecart.ModelClass;
 public class UserModel {
     private  String Email,Password,Name,Phone,Uid;
 
+
     public UserModel(String email, String password, String name, String phone, String uid) {
         Email = email;
         Password = password;

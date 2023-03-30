@@ -28,8 +28,6 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
         getSupportFragmentManager().beginTransaction().replace(R.id.home_framelayout_id,new HomeFragment()).commit();
         binding.homeBottomNavigationId.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

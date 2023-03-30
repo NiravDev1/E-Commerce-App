@@ -90,6 +90,18 @@ public class SignupFragment extends Fragment {
         dialog.setContentView(R.layout.loadinglayout);
         dialog.setCancelable(false);
 
+        binding.ToLoginF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.Auth_fremelayout_id, new LoginFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
+
         binding.signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

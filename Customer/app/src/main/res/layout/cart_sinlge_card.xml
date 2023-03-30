@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cart_pname_card_id"
             android:layout_toRightOf="@id/cart_pimage_card_id"
+            android:drawableLeft="@drawable/rupee"
+            android:drawableTint="@color/black"
             android:fontFamily="@font/open_sans_reguler"
             android:text="30"
-            android:drawableTint="@color/black"
-            android:drawableLeft="@drawable/rupee"
             android:textColor="@color/black" />
 
         <TextView
@@ -49,9 +49,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/cart_pname_card_id"
             android:layout_marginStart="5dp"
-            android:drawableTint="@color/black"
-            android:drawableLeft="@drawable/rupee"
             android:layout_toRightOf="@id/cart_pdiscout_price_card_id"
+            android:drawableLeft="@drawable/rupee"
+            android:drawableTint="@color/black"
             android:fontFamily="@font/open_sans_reguler"
             android:text="100"
             android:textColor="@color/black" />
@@ -63,46 +63,32 @@
             android:layout_below="@id/cart_price_card_id"
             android:layout_marginStart="5dp"
             android:layout_toRightOf="@id/cart_pimage_card_id"
+            android:drawableLeft="@drawable/rupee"
+            android:drawableTint="@color/maincolor"
             android:fontFamily="@font/open_sans_reguler"
             android:text="100"
-            android:drawableTint="@color/maincolor"
-            android:drawableLeft="@drawable/rupee"
             android:textColor="@color/maincolor"
             android:textSize="18sp" />
 
-        <RelativeLayout
-            android:id="@+id/qunty_in_de_layout_id"
+        <TextView
+            android:id="@+id/quantity_text_incart_card_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/cart_pimage_card_id"
-            android:layout_centerVertical="true">
+            android:fontFamily="@font/opensans_bold"
+            android:text="Qunty::"
+             />
 
-            <Button
-                android:id="@+id/cart_decrementButton_card_btn"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/cart_card_quantity_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/cart_decrementButton_card_btn"
-                android:inputType="text"
-                android:padding="10dp"
-                android:text="1"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/cart_incrementButton_card_id"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/cart_card_quantity_textview"
-                android:text="+"
-                android:textSize="15sp" />
-
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/cart_card_quantity_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_pimage_card_id"
+            android:fontFamily="@font/opensans_bold"
+            android:text="Qunty::"
+            android:layout_toRightOf="@id/quantity_text_incart_card_id"
+            android:textColor="@color/black"
+             />
 
 
         <Button
@@ -117,7 +103,7 @@
             android:text="Delete"
             android:textAllCaps="false"
             android:textColor="@color/maincolor"
-            android:textSize="10sp" />
+             />
 
         <Button
             android:layout_width="wrap_content"
@@ -130,7 +116,7 @@
             android:text="save for later"
             android:textAllCaps="false"
             android:textColor="@color/maincolor"
-            android:textSize="10sp" />
+            />
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.example.ecart.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.net.wifi.aware.IdentityChangedListener;
@@ -40,7 +41,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewholder holder, int position) {
+    public void onBindViewHolder(@NonNull CartViewholder holder, @SuppressLint("RecyclerView") int position) {
         CartModel cartModel = list.get(position);
         holder.pname.setText(cartModel.getProductName());
         holder.pqunty.setText(cartModel.getProductQuantity());
@@ -49,42 +50,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
         holder.pdiscoutprice.setText(cartModel.getProductDiscountPrice());
         Glide.with(holder.pimge).load(cartModel.getProductImage()).into(holder.pimge);
 
-        holder.decrement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cout = Integer.parseInt(holder.pqunty.getText().toString());
-                int price= Integer.parseInt(holder.pdiscoutprice.getText().toString());
-                if (cout != 1) {
-                    cout--;
-                    holder.pqunty.setText(String.valueOf(cout));
-                    int c= Integer.parseInt(holder.pqunty.getText().toString());
-                    int tp=price*c;
-                    holder.plprice.setText(String.valueOf(tp));
 
-                }
-                else
-                {
-                    holder.plprice.setText(cartModel.getProductDiscountPrice());
-                }
-
-
-            }
-        });
-        holder.increment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int cout= Integer.parseInt(holder.pqunty.getText().toString());
-                int price= Integer.parseInt(holder.pdiscoutprice.getText().toString());
-                cout++;
-                holder.pqunty.setText(String.valueOf(cout));
-                int c= Integer.parseInt(holder.pqunty.getText().toString());
-                int tp=price*c;
-                System.out.println(price);
-                System.out.println(c);
-                System.out.println(tp);
-                holder.plprice.setText(String.valueOf(tp));
-            }
-        });
         holder.deteleitemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +72,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
     public class CartViewholder extends RecyclerView.ViewHolder {
         TextView pprice, pdiscoutprice, plprice, pqunty, pname;
         ImageView pimge;
-        Button increment, decrement,deteleitemBtn;
+        Button deteleitemBtn;
 
         public CartViewholder(@NonNull View itemView) {
             super(itemView);
@@ -120,8 +86,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewholder
             pqunty = itemView.findViewById(R.id.cart_card_quantity_textview);
 
             deteleitemBtn=itemView.findViewById(R.id.delete_item_BTN);
-            increment = itemView.findViewById(R.id.cart_incrementButton_card_id);
-            decrement = itemView.findViewById(R.id.cart_decrementButton_card_btn);
+
         }
     }
 }

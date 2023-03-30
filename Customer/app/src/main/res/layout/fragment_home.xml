@@ -64,11 +64,11 @@
                 android:layout_height="200dp"
                 android:layout_marginTop="5dp">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="TODO"
-                    android:src="@drawable/banner" />
+               <androidx.viewpager2.widget.ViewPager2
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/home_sider_view_pager_id"
+                   />
 
 
             </androidx.cardview.widget.CardView>
@@ -129,7 +129,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20dp">
 
                 <TextView
                     android:id="@+id/product_by_text_s_id"
@@ -239,6 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/product_by_text_s_id"
                     tools:itemCount="1"
+
                     tools:listitem="@layout/products_single_card" />
 
 

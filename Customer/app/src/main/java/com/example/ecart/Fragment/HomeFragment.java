@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiThread;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 import com.example.ecart.Activity.CartActivity;
 import com.example.ecart.Adapter.CategoriesAdapter;
 import com.example.ecart.Adapter.ProductAdapter;
+import com.example.ecart.Adapter.SliderImageHomeAdapter;
 import com.example.ecart.ModelClass.CategoriesModel;
 import com.example.ecart.ModelClass.ProductsModel;
+import com.example.ecart.ModelClass.SliderImageModel;
 import com.example.ecart.ModelClass.UserModel;
 import com.example.ecart.R;
 import com.example.ecart.databinding.FragmentHomeBinding;
@@ -89,7 +92,9 @@ public class HomeFragment extends Fragment {
     ProductsModel productsModel;
     String UID;
 
+    ArrayList<SliderImageModel> imglist;
 
+    SliderImageHomeAdapter sliderImageHomeAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,7 +102,25 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         reference = FirebaseDatabase.getInstance().getReference();
 
+        imglist=new ArrayList<>();
+
         UID = FirebaseAuth.getInstance().getUid();
+
+       imglist.add(new SliderImageModel("https://firebasestorage.googleapis.com/v0/b/insta-cart-54f00.appspot.com/o/electric-appliance.png?alt=media&token=5db50b53-c9c7-4873-90e5-aa0de1de3d04"));
+       imglist.add(new SliderImageModel("https://firebasestorage.googleapis.com/v0/b/insta-cart-54f00.appspot.com/o/banner.jpg?alt=media&token=23c13136-bce4-4d34-a10e-6e965961d784"));
+       imglist.add(new SliderImageModel("https://firebasestorage.googleapis.com/v0/b/insta-cart-54f00.appspot.com/o/banner1.jpeg?alt=media&token=a8ee65cd-f7b4-4682-8832-f3412504c20a"));
+
+        sliderImageHomeAdapter=new SliderImageHomeAdapter(imglist,binding.homeSiderViewPagerId);
+        binding.homeSiderViewPagerId.setAdapter(sliderImageHomeAdapter);
+        binding.homeSiderViewPagerId.setOffscreenPageLimit(3);
+        binding.homeSiderViewPagerId.setClipChildren(false);
+        binding.homeSiderViewPagerId.setClipToPadding(false);
+        binding.homeSiderViewPagerId.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+
+
+
+
 
         binding.ToOpenCartBTNId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,8 +200,6 @@ public class HomeFragment extends Fragment {
         });
 
         binding.productHomeRecyclerViewId.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-
         binding.productHomeRecyclerViewId.setAdapter(productAdapter);
         productAdapter.notifyDataSetChanged();
 

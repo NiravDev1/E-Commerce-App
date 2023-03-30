@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.ecart"
-        minSdk 24
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -50,5 +50,4 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     //shimmer effect
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
-
 }
